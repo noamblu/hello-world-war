@@ -9,8 +9,7 @@ pipeline {
 
     stage('Maven package') {
       steps {
-        sh '''cd hello-world-war/
-mvn clean package'''
+        sh 'mvn clean package'
       }
     }
 
