@@ -23,7 +23,12 @@ pipeline {
         sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=noamblu_hello-world-war'
       }
     }
-
+    
+    stage('Docker build') {
+      steps {
+        sh 'docker build -t ${env.JOB_NAME}:${env.BUILD_NUMBER} .'
+      }
+    }
     stage('Archive the artifacts') {
       steps {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
@@ -31,11 +36,7 @@ pipeline {
       }
     }
 
-    stage('Docker build') {
-      steps {
-        sh 'docker build -t hello-world-war: .'
-      }
-    }
+   
 
   }
 }
