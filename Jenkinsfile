@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'docker-slave'
+    }
+
+  }
   stages {
     stage('CheckOut pode') {
       steps {
@@ -23,6 +28,12 @@ pipeline {
       steps {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
+      }
+    }
+
+    stage('Docker build') {
+      steps {
+        sh 'docker build -t hello-world-war: .'
       }
     }
 
