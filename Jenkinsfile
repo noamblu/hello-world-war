@@ -13,8 +13,8 @@ pipeline {
 mvn clean package'''
       }
     }
-    
-     stage('Sonarcube verify') {
+
+    stage('Sonarcube verify') {
       steps {
         sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=noamblu_hello-world-war'
       }
@@ -26,5 +26,6 @@ mvn clean package'''
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
       }
     }
+
   }
 }
