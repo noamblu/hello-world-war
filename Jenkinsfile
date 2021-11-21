@@ -45,4 +45,7 @@ ls -al'''
     }
 
   }
+  environment {
+    SONAR_TOKEN = 'dfe2b88279939d52412bf6588dcc4eb5c77a0a1c'
+  }
 }
