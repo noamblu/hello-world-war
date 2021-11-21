@@ -26,7 +26,7 @@ pipeline {
 
     stage('Docker build') {
       steps {
-        sh 'docker build -t ${env.JOB_NAME}:${env.BUILD_NUMBER} .'
+        sh '''docker build -t ${env.JOB_NAME}:${env.BUILD_NUMBER} .'''
       }
     }
 
