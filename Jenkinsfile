@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('CheckOut pode') {
       steps {
-        git(url: 'https://github.com/noamblu/hello-world-war.git', branch: 'master', credentialsId: 'GitHub')
+        git(url: 'https://github.com/noamblu/hello-world-war.git', branch: 'dev', credentialsId: 'GitHub')
       }
     }
 
