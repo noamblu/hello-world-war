@@ -11,11 +11,13 @@ pipeline {
         git(url: 'https://github.com/noamblu/hello-world-war.git', branch: 'master', credentialsId: 'GitHub')
       }
     }
+
     stage('debug') {
       steps {
         sh 'pwd.'
       }
     }
+
     stage('Maven package') {
       steps {
         sh 'mvn clean package'
