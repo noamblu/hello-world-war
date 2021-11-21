@@ -15,7 +15,7 @@ pipeline {
       steps {
         sh 'pwd.'
       }
-
+    }
     stage('Maven package') {
       steps {
         sh 'mvn clean package'
