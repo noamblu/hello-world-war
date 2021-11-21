@@ -11,7 +11,7 @@ pipeline {
         git(url: 'https://github.com/noamblu/hello-world-war.git', branch: 'dev', credentialsId: 'GitHub')
       }
     }
-    
+
     stage('Maven package') {
       steps {
         sh 'mvn clean package'
@@ -26,7 +26,7 @@ pipeline {
 
     stage('Docker build') {
       steps {
-        sh '''docker build -t ${env.JOB_NAME}:${env.BUILD_NUMBER} .'''
+        sh 'docker build -t ${env.JOB_NAME}:${env.BUILD_NUMBER} .'
       }
     }
 
