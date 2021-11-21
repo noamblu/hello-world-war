@@ -15,7 +15,7 @@ pipeline {
     stage('debug') {
       steps {
         sh '''pwd
-ll'''
+ls -al'''
       }
     }
 
