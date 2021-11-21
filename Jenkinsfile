@@ -14,7 +14,8 @@ pipeline {
 
     stage('debug') {
       steps {
-        sh 'pwd.'
+        sh '''pwd
+ll'''
       }
     }
 
