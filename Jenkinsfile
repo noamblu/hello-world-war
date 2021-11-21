@@ -11,14 +11,7 @@ pipeline {
         git(url: 'https://github.com/noamblu/hello-world-war.git', branch: 'dev', credentialsId: 'GitHub')
       }
     }
-
-    stage('debug') {
-      steps {
-        sh '''pwd
-ls -al'''
-      }
-    }
-
+    
     stage('Maven package') {
       steps {
         sh 'mvn clean package'
