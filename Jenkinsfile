@@ -3,7 +3,9 @@ pipeline {
     node {
       label 'docker-slave'
     }
-
+  }
+  environment {
+    dockerImage = ''
   }
   stages {
     stage('CheckOut pode') {
@@ -25,7 +27,7 @@ pipeline {
     }
      stage('Docker build') {
       steps {
-        def dockerImage = docker.build("hello-world-war")
+        dockerImage = docker.build("hello-world-war")
       }
     }
 
