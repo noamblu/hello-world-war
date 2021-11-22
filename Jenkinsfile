@@ -29,7 +29,6 @@ pipeline {
         script {
           dockerImage = docker.build("hello-world-war")
         }
-
       }
     }
 
@@ -45,16 +44,10 @@ pipeline {
       }
     }
 
-    stage('Archive the artifacts') {
-      steps {
-        archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
-        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
-      }
-    }
-
     stage('Remove docker image') {
       steps {
         sh 'docker rmi hello-world-war:$BUILD_NUMBER hello-world-war:$imagename:latest'
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
       }
     }
 
