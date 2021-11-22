@@ -26,13 +26,13 @@ pipeline {
 
     stage('Docker build') {
       steps {
-        sh 'docker build -t 127.0.0.1:500/hello-world-war:$BUILD_NUMBER .'
+        sh 'docker build -t 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER .'
       }
     }
 
     stage('Docker push') {
       steps {
-        sh 'docker push 127.0.0.1:500/hello-world-war:$BUILD_NUMBER'
+        sh 'docker push 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER'
       }
     }
 
