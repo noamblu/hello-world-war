@@ -26,7 +26,7 @@ pipeline {
 
     stage('Docker build') {
       steps {
-        sh 'docker build -t $JOB_NAME:$BUILD_NUMBER .'
+        sh 'docker build -t 127.0.0.1:500/hello-world-war:$BUILD_NUMBER .'
       }
     }
 
@@ -34,6 +34,12 @@ pipeline {
       steps {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
+      }
+    }
+
+    stage('') {
+      steps {
+        sh 'docker push'
       }
     }
 
