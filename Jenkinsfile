@@ -6,7 +6,7 @@ pipeline {
 
   }
   stages {
-    stage('CheckOut pode') {
+    stage('CheckOut code') {
       steps {
         git(url: 'https://github.com/noamblu/hello-world-war.git', branch: 'dev', credentialsId: 'GitHub')
       }
