@@ -25,13 +25,16 @@ pipeline {
     }
      stage('Docker build') {
       steps {
-        sh 'docker build -t 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER .'
+        def dockerImage = docker.build("hello-world-war", "-f ./Dockerfile")
       }
     }
 
     stage('Docker push') {
       steps {
-        sh 'docker push -t 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER'
+        script {
+          docker.withRegistry('127.0.0.1', 'nexus3-docker-repository') {
+          dockerImage.push("$BUILD_NUMBER")
+        }
       }
     }
 
