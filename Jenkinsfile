@@ -3,9 +3,7 @@ pipeline {
     node {
       label 'docker-slave'
     }
-  }
-  environment {
-    dockerImage = ''
+
   }
   stages {
     stage('CheckOut pode') {
@@ -25,11 +23,13 @@ pipeline {
         sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=noamblu_hello-world-war'
       }
     }
-     stage('Docker build') {
+
+    stage('Docker build') {
       steps {
         script {
           dockerImage = docker.build("hello-world-war")
         }
+
       }
     }
 
@@ -41,9 +41,10 @@ pipeline {
             dockerImage.push("latest")
           }
         }
+
       }
     }
-  
+
     stage('Archive the artifacts') {
       steps {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
@@ -51,5 +52,14 @@ pipeline {
       }
     }
 
+    stage('Remove docker image') {
+      steps {
+        sh 'docker rmi hello-world-war:$BUILD_NUMBER hello-world-war:$imagename:latest'
+      }
+    }
+
+  }
+  environment {
+    dockerImage = ''
   }
 }
