@@ -25,19 +25,21 @@ pipeline {
     }
      stage('Docker build') {
       steps {
-        def dockerImage = docker.build("hello-world-war", "-f ./Dockerfile")
+        def dockerImage = docker.build("hello-world-war")
       }
     }
 
     stage('Docker push') {
       steps {
         script {
-          docker.withRegistry('127.0.0.1', 'nexus3-docker-repository') {
-          dockerImage.push("$BUILD_NUMBER")
+          docker.withRegistry('127.0.0.1:5000', 'nexus3-docker-repository') {
+            dockerImage.push("$BUILD_NUMBER")
+            dockerImage.push("latest")
+          }
         }
       }
     }
-
+  
     stage('Archive the artifacts') {
       steps {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
