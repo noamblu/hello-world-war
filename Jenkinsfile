@@ -23,16 +23,15 @@ pipeline {
         sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=noamblu_hello-world-war'
       }
     }
-    
+     stage('Docker build') {
+      steps {
+        sh 'docker build -t 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER .'
+      }
+    }
+
     stage('Docker push') {
       steps {
-        docker.withRegistry('127.0.0.1:5000', 'nexus3-docker-repository') {
-
-          def customImage = docker.build("hello-world-war:${env.BUILD_ID}")
-
-          /* Push the container to the custom Registry */
-          customImage.push()
-        }
+        sh 'docker push -t 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER'
       }
     }
 
