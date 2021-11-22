@@ -27,7 +27,7 @@ pipeline {
     stage('Docker build') {
       steps {
         script {
-          dockerImage = docker.build("hello-world-war")
+          def dockerImage = docker.build("hello-world-war")
         }
 
       }
@@ -60,6 +60,6 @@ pipeline {
 
   }
   environment {
-    dockerImage = ''
+    dockerImagetest = ''
   }
 }
