@@ -29,19 +29,17 @@ pipeline {
         sh 'docker build -t 127.0.0.1:500/hello-world-war:$BUILD_NUMBER .'
       }
     }
-
+     stage('Docker push') {
+      steps {
+        sh 'docker push 127.0.0.1:500/hello-world-war:$BUILD_NUMBER'
+      }
+    }
+    
     stage('Archive the artifacts') {
       steps {
         archiveArtifacts(onlyIfSuccessful: true, artifacts: '**/target/*.war')
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
       }
     }
-
-    stage('') {
-      steps {
-        sh 'docker push'
-      }
-    }
-
   }
 }
