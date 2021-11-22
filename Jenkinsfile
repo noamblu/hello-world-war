@@ -36,7 +36,7 @@ pipeline {
     stage('Docker push') {
       steps {
         script {
-          docker.withRegistry('127.0.0.1:5000', 'nexus3-docker-repository') {
+          docker.withRegistry('http://127.0.0.1:5000', 'nexus3-docker-repository') {
             dockerImage.push("$BUILD_NUMBER")
             dockerImage.push("latest")
           }
