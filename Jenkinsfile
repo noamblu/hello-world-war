@@ -46,7 +46,7 @@ pipeline {
 
     stage('Remove docker image') {
       steps {
-        sh 'docker rmi hello-world-war:$BUILD_NUMBER hello-world-war:$imagename:latest'
+        sh 'docker rmi 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER 127.0.0.1:5000/hello-world-war:$imagename:latest'
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
       }
     }
@@ -54,11 +54,11 @@ pipeline {
   }
    post {
     success {
-      slackSend(message: "${env.JOB_NAME} #${env.BUILD_NUMBER} - Started By ${env.BUILD_USER} (${env.BUILD_URL}) finshd successfully", channel: 'noam-dev', color: '#008000')
+      slackSend(message: "${env.JOB_NAME} #${env.BUILD_NUMBER} - (${env.BUILD_URL}) finshd successfully", channel: 'noam-dev', color: '#008000')
     }
 
     failure {
-      slackSend(message: "${env.JOB_NAME} #${env.BUILD_NUMBER} - Started By ${env.BUILD_USER} (${env.BUILD_URL}) finshd with error", channel: 'noam-dev', color: '#FF0000')
+      slackSend(message: "${env.JOB_NAME} #${env.BUILD_NUMBER} - (${env.BUILD_URL}) finshd with error", channel: 'noam-dev', color: '#FF0000')
     }
 
   }
