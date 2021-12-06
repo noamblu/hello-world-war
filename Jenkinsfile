@@ -46,7 +46,8 @@ pipeline {
 
     stage('Remove docker image') {
       steps {
-        sh 'docker rmi 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER 127.0.0.1:5000/hello-world-war:$imagename:latest'
+        sh '''docker rmi 127.0.0.1:5000/hello-world-war:$BUILD_NUMBER
+        docker rmi 127.0.0.1:5000/hello-world-war:$imagename:latest'''
         cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true)
       }
     }
